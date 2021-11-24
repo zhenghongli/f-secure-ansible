@@ -1,0 +1,54 @@
+#- name: Update all packages to their latest version
+#  yum:
+#    name: "*"
+#    state: latest 
+#  become: true
+#  when: ansible_os_family == "RedHat"
+- name: To install common package
+  yum:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_list:
+    - fuse-libs
+    - libcurl 
+    - python
+    - zip
+    - unzip
+  when: ansible_os_family == "RedHat" and ansible_distribution_version == '7'
+- name: Update all packages to their latest version
+  yum:
+    name: "*"
+    state: latest 
+  become: true
+  when: ansible_os_family == "RedHat"
+- name: To install common package
+  yum:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_list:
+    - fuse-libs
+    - libcurl 
+    - python3
+    - zip
+    - unzip
+  when: ansible_os_family == "RedHat" and ansible_distribution_version == "8"
+#- name: Update all packages to their latest version
+#  apt:
+#    name: "*"
+#    state: latest
+#  become: true
+#  when: ansible_os_family == "Debian"
+- name: To install common package
+  apt:
+    name: "{{ item }}"
+    state: present
+  become: true
+  with_list:
+    - libfuse2
+    - libcurl4 
+    - python
+    - zip
+    - unzip
+  when: ansible_os_family == "Debian"

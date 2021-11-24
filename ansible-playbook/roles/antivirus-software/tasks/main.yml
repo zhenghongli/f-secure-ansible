@@ -1,0 +1,21 @@
+- name: Create folder for f-security
+  file:
+    path: "{{ ansible_env.HOME }}/f-secure-ls64"
+    state: directory
+- name: Copy f-security file to remote machine
+  ansible.builtin.copy:
+    src: "{{ f_security.home }}/{{ f_security.file }}"
+    dest: "{{ ansible_env.HOME }}/f-secure-ls64/{{ f_security.file }}"
+    owner: "{{ role_user.name }}"
+    group: "{{ role_user.name }}"
+    mode: '0755'
+- name: Extract f-security.zip
+  ansible.builtin.unarchive:
+    src: "{{ ansible_env.HOME }}/f-secure-ls64/{{ f_security.file }}"
+    dest: "{{ ansible_env.HOME }}/f-secure-ls64"
+    remote_src: yes
+- name: Install f-secure software
+  ansible.builtin.command: "bash {{ ansible_env.HOME }}/f-secure-ls64/f-secure-linuxsecurity/f-secure-linuxsecurity-installer"
+  become: yes
+  
+

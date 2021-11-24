@@ -1,0 +1,4 @@
+- hosts: ezmeral
+  roles:
+    - common
+    - antivirus-software

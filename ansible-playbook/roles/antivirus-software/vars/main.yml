@@ -1,0 +1,7 @@
+---
+# vars file for common
+f_security:
+    file: 'fsls64-2.0.37-Linux.zip'
+    home: '/ansible-playbook'
+role_user:
+    name: tsti
