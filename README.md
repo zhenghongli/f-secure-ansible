@@ -9,23 +9,25 @@
 docker build -t f-secure-ansible-deploy:0.0.1 .
 ```
 ## change hosts variable for your environment
+
+
+1. specify the host's group of your environment.
 ```
 vim ansible-playbook/hosts
 ```
 
-1. specify the host's group of your environment.
 ```
     example:
-    [ai-platform]
+    [GROUP_NAME]
     172.31.235.218
 
-    [ezmeral]
+    [GROUP_NAME]
     #172.31.235.241
     #172.31.235.230
     #172.31.235.231
 ```
 
-2. add variables for your ssh user, password, and your root password.
+    add variables for your ssh user, password, and your root password.
 ```
     example:
     [all:vars]
@@ -34,9 +36,20 @@ vim ansible-playbook/hosts
     ansible_ssh_pass={SSH_PASSWORD}
     ansible_become_pass={ROOT_PASSWORD}
 ```
-you can reference this tutorial:
-https://chusiang.github.io/ansible-docs-translate/intro_inventory.html
+    you can reference this tutorial:
+    https://chusiang.github.io/ansible-docs-translate/intro_inventory.html
 
+
+2. change install host group
+```
+vim antivirus-software.yml
+```
+```
+- hosts: {GROUP}
+  roles:
+    - common
+    - antivirus-software
+```
 ## start ansible environment by docker
 ```
 cd ansible-playbook
